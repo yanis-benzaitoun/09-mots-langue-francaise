@@ -1,0 +1,5 @@
+{
+  "name": "GitHub classroom project",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "postCreateCommand": "pip install pytest && chmod 755 check && echo container started"
+}
