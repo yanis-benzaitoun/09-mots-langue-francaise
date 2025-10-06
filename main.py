@@ -33,8 +33,16 @@ def read_data(filename):
     >>> mots[166128]
     'gloire'
     """
+    words = set()
+    f = open('filename.txt')
+    for i in f:
+        words.add(i.strip())
+    f.close()
+    return words
+
+
+
     
-    return None
 
 
 def ensemble_mots(filename):
@@ -56,8 +64,15 @@ def ensemble_mots(filename):
     >>> "glycosudrique" in mots
     False
     """
+def ensemble_mots(nom_fichier):
+    mots = set()
+    with open(nom_fichier, "r", encoding="utf-8") as f:
+        for ligne in f:
+            for mot in ligne.split():
+                mots.add(mot)
+    return mots
+
     
-    return None
 
 
 def mots_de_n_lettres(mots, n):
@@ -85,8 +100,12 @@ def mots_de_n_lettres(mots, n):
     >>> sorted(list(mots_de_n_lettres(mots,25)))
     ['anticonstitutionnellement', 'oto-rhino-laryngologistes']
     """
+    f = set()
+    for i in mots:
+        if len(i) == n:
+            f.add("i")
+    return f
     
-    return None
 
 
 def mots_avec(mots, s):
@@ -112,8 +131,8 @@ def mots_avec(mots, s):
     >>> sorted(list(mk))[999::122]
     ['képi', 'nickela', 'parkérisiez', 'semi-coke', 'stockais', 'week-end']
     """
+    return mots & {mot for mot in mots if s in mot}
     
-    return None
 
 
 def cherche1(mots, start, stop, n):
@@ -138,7 +157,7 @@ def cherche1(mots, start, stop, n):
     ['zinguez', 'zippiez', 'zonerez']
     """
     
-    return None
+    return {mot for mot in mots if len(mot) == n and mot.startswith(start) and mot.endswith(stop)}
 
 
 def cherche2(mots, lstart, lmid, lstop, nmin, nmax):
@@ -165,7 +184,14 @@ def cherche2(mots, lstart, lmid, lstop, nmin, nmax):
     {'alphabétisassiez'}
     """
     
-    return None
+    resultat = set()
+    for mot in mots:
+        if nmin <= len(mot) <= nmax:
+            if any(mot.startswith(start) for start in lstart):
+                if any(mid in mot[1:-1] for mid in lmid):
+                    if any(mot.endswith(stop) for stop in lstop):
+                        resultat.add(mot)
+    return resultat
 
 
 def main():
